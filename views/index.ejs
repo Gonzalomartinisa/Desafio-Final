@@ -13,14 +13,32 @@
    />
     <title>App de Gonzalo</title>
 </head>
-<body>
-    <h1>Centro de mensajes</h1>
-    
-    <h2><b id="username"></b></h2>
+<body style="width:500px; margin:10px; background-color: azure;">
+    <h1 style="font: 3em sans-serif;">Centro de mensajes</h1>
 
-    <input id="mensaje"><button id="btn">Enviar</button>
+    <form class="was-validated">
+        <div class="mb-3">
+            <label for="validationTooltipUsername" class="form-label">Ingrese su email:</label>
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+              <input type="text" class="form-control" id="email" aria-describedby="validationTooltipUsernamePrepend" required>
+              <div class="invalid-tooltip">
+                Por favor seleccione un email valido.
+              </div>
+            </div>    
+        </div>
+        <div class="mb-3">
+                <label for="validationTextarea" class="form-label">Ingrese el mensaje: </label>
+                <textarea class="form-control is-invalid" id="mensaje" placeholder="" required></textarea>
+                <div class="invalid-feedback">
+                  Por favor ingrese su mensaje es esta area.
+                </div>
+              </div>           
+        </div>
+        <button id="btn" type="submit" class="btn btn-primary">Enviar</button>
+      </form>
 
-    <div id="mensajes"></div>
+      <div id="mensajes"></div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/public/front.js"></script>

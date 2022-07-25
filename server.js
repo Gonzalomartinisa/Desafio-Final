@@ -19,9 +19,15 @@ app.get('/', (req, res) => res.render('index'));
 
 const PORT = process.env.PORT || 3000
 
-app.get('/data', (res, req) => {
+
+app.get('/data', (req, res) => {
     const data = newData.getAll()
-    res.json({data})
+    .then((data)=>{
+        res.json({data})
+    })
+    .catch((error)=>{
+        console.log(error)
+    })
 });
 
 io.on('connection', (socket) => {
@@ -30,7 +36,7 @@ io.on('connection', (socket) => {
         const date = new Date().toDateString()
         const dataOut = {
             txt: data.txt,
-            username: data.username,
+            usuario: data.usuario,
             time,
             date
         }
