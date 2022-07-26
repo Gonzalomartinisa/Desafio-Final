@@ -21,6 +21,7 @@ btn.onclick = e => {
 const div = document.getElementById('mensajes');
 
 loadFirstData();
+loadFirstProd();
 
 socket.on('chat-out', data => {
     addData(data);
@@ -41,6 +42,48 @@ function loadFirstData(){
        .then(data => data.json())
        .then(data => {
             loadData(data.data)
-        })
-      
+        })      
 }
+
+const boton = document.getElementById('boton');
+
+boton.onclick = e => {
+    e.preventDefault()
+    const title = document.getElementById('title').value
+    const autor = document.getElementById('autor').value
+    const precio = document.getElementById('precio').value;
+    const img = document.getElementById('img').value;
+    socket.emit('notiProductos', {title, autor, precio, img});
+}
+
+socket.on('product-out', data => {
+    addProductos(data)
+});
+
+function addProductos(data){
+    const div = document.getElementById('mensajes2');
+    div.innerHTML +=`
+        <tr>
+        <th scope="col">#</th>
+        <td>${data.title}</td>
+        <td>${data.autor}</td>
+        <td>${data.precio}</td> 
+        <td><img src="${data.img}" style="heitght: 60px; width:60px;"</td> 
+        </tr>`
+};
+
+function loadProd(data){
+    console.log(data)
+    data.forEach(data => addProductos(data));
+}
+
+function loadFirstProd(){
+    fetch('/data2')
+       .then(data => data.json())
+       .then(data => {
+            loadProd(data.data)
+        })      
+}
+  
+  
+

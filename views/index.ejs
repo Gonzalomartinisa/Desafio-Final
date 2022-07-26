@@ -13,10 +13,56 @@
    />
     <title>App de Gonzalo</title>
 </head>
-<body style="width:500px; margin:10px; background-color: azure;">
-    <h1 style="font: 3em sans-serif;">Centro de mensajes</h1>
+<body style="width:700px; margin:10px; background-color: azure;">
 
-    <form class="was-validated">
+  <div class="m-1 p-5">
+    <h1 style="font: 3em sans-serif; margin: 30px;">Agregar productos</h1>
+    <form>
+      <div class="mb-3">
+        <label name="title" class="form-label">Nombre</label>
+        <input type="text" class="form-control" name="title" id="title" />
+        <div id="title" class="form-text"></div>
+      </div>
+      <div class="mb-3">
+        <label name="autor" class="form-label">Autor</label>
+        <input type="text" class="form-control" name="autor" id="autor" />
+        <div id="autor" class="form-text"></div>
+      </div>
+      <div class="mb-3">
+        <label name="precio" class="form-label">Precio</label>
+        <input type="text" class="form-control" name="precio" id="precio" />
+        <div id="precio" class="form-text"></div>
+      </div>
+      <div class="mb-3">
+        <label name="img" class="form-label">Imagen</label>
+        <input type="text" class="form-control" name="img" id="img" />
+        <div id="img" class="form-text"></div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" id="boton">Agregar</button>
+    </form>
+  </div>
+   <div style="width:700px; margin:30px;">
+      <h1 style="font: 3em sans-serif; margin: 30px;">Todos los productos</h1>
+    
+      <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Img</th>
+          </tr>
+        </thead>
+        <tbody id="mensajes2">
+        </tbody>
+      </table>
+    </div>
+
+    <h1 style="font: 3em sans-serif; margin: 30px; margin-top: 100px;">Centro de mensajes</h1>
+
+    <form class="was-validated" style="margin: 30px; background-color:lightcyan">
         <div class="mb-3">
             <label for="validationTooltipUsername" class="form-label">Ingrese su email:</label>
             <div class="input-group has-validation">
@@ -38,7 +84,7 @@
         <button id="btn" type="submit" class="btn btn-primary">Enviar</button>
       </form>
 
-      <div id="mensajes"></div>
+      <div id="mensajes" style="margin: 30px; background-color:white"></div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/public/front.js"></script>
