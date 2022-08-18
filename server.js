@@ -5,7 +5,7 @@ const Contenedor = require('./contenedor');
 const newData = new Contenedor('newData.json')
 const producto = new Contenedor('producto.json')
 const { options } = require('./options/db.js');
-const { Knex } = require('knex');
+
 const knex = require('knex')(options);
 
 const app = express();
@@ -33,25 +33,37 @@ app.get('/data', (req, res) => {
     })
 });
 
+app.get('/data2',(req,res)=>{
+     const produc = []
+     knex.select('*').from('productos')
+         .then(productos => {
+             for (const prod of productos) {
+                 produc.push({
+                     title:prod.title,
+                     autor:prod.autor,
+                     price:prod.price,
+                     img:prod.img
+                 })
+             }
+             res.json({data:produc})
+         })
+         .catch((error)=>{
+           console.log(error)
+   })
+})
 
-// app.get('/data2', (req, res) => {
-//     knex.from('productos').select('*')
-//        .then((rows) => {
-//            for (row of rows) {
-//            console.log(`${row['title']}${row['autor']}${row['price']}`)
-//         }
-//     })
 // })
- app.get('/data2', (req, res) => {
-     const data = producto.getAll()
-     .then((data)=>{
-         res.json({data})
-     })
-     .catch((error)=>{
-         console.log(error)
-    })
- });
+//   app.get('/data2', (req, res) => {
+//       const data = producto.getAll()
+//      .then((data)=>{
+//           res.json({data})
+//       })
+//      .catch((error)=>{
+//          console.log(error)
+//     })
+//  });
 
+// 
 io.on('connection', (socket) => {
     socket.on('notificacion', data => {
         const time = new Date().toLocaleTimeString()
@@ -63,13 +75,14 @@ io.on('connection', (socket) => {
     socket.on('notiProductos', data => {
         knex('productos').insert({
             title: data.title,
-            precio: data.precio,
-            img: data.img
+            autor: data.autor,
+            img: data.img,
+            price: data.price,
         })
         .then(() => console.log("productos insertados"))
         .catch(err => {console.log(err); throw err})
         const dataOut = data
-        producto.save(dataOut);
+        // producto.save(dataOut);
         io.sockets.emit('product-out', dataOut);
     })
 })

@@ -1,4 +1,4 @@
-const { options } = require('./options/db.js');
+const {options}  = require('./options/db.js');
 const knex = require('knex')(options);
 
 knex.schema.createTable('productos', table => {
