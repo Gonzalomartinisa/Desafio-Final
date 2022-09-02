@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { readFile } = require('fs/promises');
 
 class Contenedor{
     constructor(filename){
@@ -14,12 +13,12 @@ class Contenedor{
             console.log('No hay archivo')
         }
         
-        let lastID = 1
-        if (info.length > 0) {
-            lastID = info[info.length -1].id + 1
-        }
+        // let lastID = 1
+        // if (info.length > 0) {
+        //     lastID = info[info.length -1].id + 1
+        // }
 
-        obj.id = lastID
+        // obj.id = lastID
         info.push(obj)
 
         await this.writeInfo(info)

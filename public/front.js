@@ -1,21 +1,18 @@
-// let username = sessionStorage.getItem('username');
-// if(!username){
-//     username = prompt('Ingrese su email'),
-//     sessionStorage.setItem('username', username)
-// }
-
-// document.getElementById('username').innerHTML = `Bienvenido ${username}`;
-
 const socket = io();
 
 const btn = document.getElementById('btn');
 
 btn.onclick = e => {
     e.preventDefault()
-    const usuario = document.getElementById('email').value;
-    const txt = document.getElementById('mensaje').value
+    const nombre = document.getElementById('nombre').value;
+    const id = document.getElementById('email').value;
+    const text = document.getElementById('mensaje').value;
+    const edad = document.getElementById('edad').value;
+    const apellido = document.getElementById('apellido').value;
+    const alias = document.getElementById('alias').value;
+    const avatar = document.getElementById('avatar').value;
     
-    socket.emit('notificacion', {txt, usuario});
+    socket.emit('notificacion', {author: {id, nombre, edad, apellido, alias, avatar}, text});
 }
 
 const div = document.getElementById('mensajes');
@@ -29,7 +26,7 @@ socket.on('chat-out', data => {
 
 function addData(data) {
     const div = document.getElementById('mensajes');
-    div.innerHTML = div.innerHTML + "<br>" + `<b>${data.usuario}</b> [${data.date} ${data.time}]: <i>${data.txt}</i>`;
+    div.innerHTML = div.innerHTML + "<br>" + `<b>${data.id}</b> [${data.date} ${data.time}]: <i>${data.text}</i>`;
 };
 
 function loadData(data){

@@ -5,6 +5,7 @@ const Contenedor = require('./contenedor');
 const newData = new Contenedor('newData.json')
 const producto = new Contenedor('producto.json')
 const { options } = require('./options/db.js');
+const apiRouter = require('./router/api.product')
 
 const knex = require('knex')(options);
 
@@ -18,6 +19,7 @@ app.set('view engine', 'ejs');
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use('/public', express.static(__dirname + '/public'));
+app.use('/api/productos-test', new apiRouter())
 
 app.get('/', (req, res) => res.render('index'));
 
