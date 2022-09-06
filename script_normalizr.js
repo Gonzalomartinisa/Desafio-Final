@@ -2,8 +2,8 @@ const { normalize, schema } = require('normalizr');
 const fs = require('fs');
 
 const authorSchema = new schema.Entity('author');
-const idSchema = new schema.Entity('id', {
-    author: authorSchema
+const textSchema = new schema.Entity('id', {
+    author: authorSchema,
 });
 
 fs.readFile('./newData.json', 'utf-8', (err, data) => {
@@ -13,7 +13,7 @@ fs.readFile('./newData.json', 'utf-8', (err, data) => {
     }
     json = JSON.parse(data)
 
-const dataNormalizada = normalize(json, idSchema);
+const dataNormalizada = normalize(json, [textSchema]);
 console.log(dataNormalizada)
 
 fs.writeFile('./data_normalizada.json', JSON.stringify(dataNormalizada), err => {

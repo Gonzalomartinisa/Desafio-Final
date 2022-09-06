@@ -12,7 +12,7 @@ btn.onclick = e => {
     const alias = document.getElementById('alias').value;
     const avatar = document.getElementById('avatar').value;
     
-    socket.emit('notificacion', {author: {id, nombre, edad, apellido, alias, avatar}, text});
+    socket.emit('notificacion', {id, nombre, edad, apellido, alias, avatar, text});
 }
 
 const div = document.getElementById('mensajes');
@@ -26,7 +26,7 @@ socket.on('chat-out', data => {
 
 function addData(data) {
     const div = document.getElementById('mensajes');
-    div.innerHTML = div.innerHTML + "<br>" + `<b>${data.id}</b> [${data.date} ${data.time}]: <i>${data.text}</i>`;
+    div.innerHTML = div.innerHTML + "<br>" + `<b>${data.author.id}</b> [${data.date} ${data.time}]: <i>${data.text}</i>`;
 };
 
 function loadData(data){
@@ -64,18 +64,18 @@ function addProductos(data){
         <th scope="col">#</th>
         <td>${data.title}</td>
         <td>${data.autor}</td>
-        <td>${data.precio}</td> 
+        <td>${data.price}</td> 
         <td><img src="${data.img}" style="heitght: 60px; width:60px;"</td> 
         </tr>`
 };
 
 function loadProd(data){
-    console.log(data)
-    data.forEach(data => addProductos(data));
+     console.log(data)
+     data.forEach(data => addProductos(data));
 }
 
 function loadFirstProd(){
-    fetch('/data2')
+    fetch('/api/productos-test')
        .then(data => data.json())
        .then(data => {
             loadProd(data.data)
