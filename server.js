@@ -2,24 +2,55 @@ const express = require('express');
 const { Server } = require('socket.io');
 const http = require('http');
 const Contenedor = require('./contenedor');
-const newData = new Contenedor('newData.json')
+const newData = new Contenedor('newData.json');
 const { options } = require('./options/db.js');
 const { faker } = require('@faker-js/faker');
-
+const path = require('path');
 const knex = require('knex')(options);
+const passport = require('passport');
+const session = require('express-session');
+const flash = require('connect-flash');
 
+//Inicio
+require('./database');
+require('./src/passport/passportLocal');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-app.set('views', './views');
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+//Middlewares
+app.use(flash());
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use('/public', express.static(__dirname + '/public'));
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: true,
+    rolling: true,
+    cookie: { maxAge: 30000, secure: false, htppOnly: false }
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use((req, res, next) =>{
+    app.locals.signupMensaje = req.flash('signupMensaje');
+    app.locals.signupWelcome = req.flash('signupWelcome');
+    next();
+})
 
-app.get('/', (req, res) => res.render('index'));
+//Routes
+const routes = require('./routes/routes');
+app.use('/', routes)
+
+app.get('/', (req, res) =>{
+     res.sendFile(__dirname + '/views/index.ejs')
+});
+
+// app.get('/', (req, res) => res.render('index'));
 
 const PORT = process.env.PORT || 3000
 
