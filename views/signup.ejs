@@ -1,10 +1,11 @@
+<%- include("layouts/navbar") %>
 
 <div class="row">
     <div class="col-md-5">
         <div class="card mt-4">
             <div class="card-body">
                 <form action="/signup" method="POST">
-                    <input type="name" name="name" placeholder="Nombre">
+                    <input type="email" name="email" placeholder="Email">
                     <input type="password" name="password" placeholder="Contraseña"> 
                     <button type="submit">Registrarse</button>
                 </form>

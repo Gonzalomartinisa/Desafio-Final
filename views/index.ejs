@@ -14,7 +14,12 @@
     <title>App de Gonzalo</title>
 </head>
 <%- include("layouts/navbar") %>
-<%- include("signup") %>
+
+<% if (user)  { %>
+  <h1 class="alert alert-success">Bienveninda <%= user.email %> al mercadito</h1>
+<% } else { %>
+  <%- include("loguin") %>
+<% } %>
 
 <body style="margin:10px; background-color: azure;">
   <div class="width:600px; m-1 p-5">

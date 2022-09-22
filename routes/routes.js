@@ -29,12 +29,12 @@ router.get('/loguin', (req, res) => {
 
 router.post('/loguin', passport.authenticate('local-loguin', {
     successRedirect: '/',
-    failureRedirect: '/failloguin',
+    failureRedirect: '/',
     passReqToCallback: true,
 }));
 
-router.get('/failloguin', (req, res) => {
-    res.send('Nombre o contraseña incorretas')
+router.get('/userlog', (req, res) => {
+    res.send('El usuario se ha logueado correctamente')
 });
 
 router.get('/logout', (req, res, next) =>{
@@ -44,7 +44,16 @@ router.get('/logout', (req, res, next) =>{
   });
 });
 
-function checkAuthenticated(req, res, next){
+// router.use((req, res, next) => {
+//      isAuthenticated(req, res, next);
+//      next();
+// });
+
+router.get('/failloguin', isAuthenticated, (req, res) => {
+    res.send('Nombre o contraseña incorretas')
+});
+
+function isAuthenticated(req, res, next){
     if(req.isAuthenticated()){
         return next();
     }

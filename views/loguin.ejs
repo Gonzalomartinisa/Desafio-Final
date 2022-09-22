@@ -4,7 +4,7 @@
         <div class="card mt-4">
             <div class="card-body">
                 <form action="/loguin" method="POST">
-                    <input type="name" name="name" placeholder="Nombre">
+                    <input type="email" name="email" placeholder="Email">
                     <input type="password" name="password" placeholder="Contraseña"> 
                     <button type="submit">Loguearse</button>
                 </form>
@@ -12,3 +12,7 @@
         </div>
     </div>
 </div>
+
+<% if (loguinMensaje.length > 0)  { %>
+    <div class="alert alert-danger"><%= loguinMensaje %></div>
+<% } %>
