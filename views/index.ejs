@@ -13,11 +13,18 @@
    />
     <title>App de Gonzalo</title>
 </head>
-<body style="width:700px; margin:10px; background-color: azure;">
+<%- include("layouts/navbar") %>
 
-  <div class="m-1 p-5">
+<% if (user)  { %>
+  <h1 class="alert alert-success">Bienveninda <%= user.email %> al mercadito</h1>
+<% } else { %>
+  <%- include("loguin") %>
+<% } %>
+
+<body style="margin:10px; background-color: azure;">
+  <div class="width:600px; m-1 p-5">
     <h1 style="font: 3em sans-serif; margin: 30px;">Agregar productos</h1>
-    <form>
+    <form style="width:600px">
       <div class="mb-3">
         <label name="title" class="form-label">Nombre</label>
         <input type="text" class="form-control" name="title" id="title" />
@@ -62,7 +69,7 @@
 
     <h1 style="font: 3em sans-serif; margin: 30px; margin-top: 100px;">Centro de mensajes</h1>
 
-    <form class="was-validated" style="margin: 30px; background-color:lightcyan" id="chat">
+    <form class="was-validated" style="width: 600px; margin: 30px; background-color:lightcyan" id="chat">
         <div class="mb-3">
             <label for="validationTooltipUsername" class="form-label">Ingrese su email:</label>
             <div class="input-group has-validation">
