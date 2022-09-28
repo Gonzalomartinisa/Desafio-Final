@@ -44,11 +44,6 @@ router.get('/logout', (req, res, next) =>{
   });
 });
 
-// router.use((req, res, next) => {
-//      isAuthenticated(req, res, next);
-//      next();
-// });
-
 router.get('/failloguin', isAuthenticated, (req, res) => {
     res.send('Nombre o contraseña incorretas')
 });
@@ -59,5 +54,18 @@ function isAuthenticated(req, res, next){
     }
     res.redirect('/');
 };
+
+router.get('/info', (req, res) => {
+    const info = {
+        programa: process.title,
+        plataforma:  process.platform,
+        processID: process.pid,
+        directorio: process.cwd(),
+        version: process.version,
+        memoria: process.memoryUsage().rss,
+        argv: process.argv.slice(2),
+    }
+    res.render('info', {info})
+});
 
 module.exports = router;

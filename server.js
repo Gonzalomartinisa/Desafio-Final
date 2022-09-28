@@ -3,16 +3,17 @@ const { Server } = require('socket.io');
 const http = require('http');
 const Contenedor = require('./contenedor');
 const newData = new Contenedor('newData.json');
-const { options } = require('./options/db.js');
+// const { options } = require('./options/db.js');
 const { faker } = require('@faker-js/faker');
 const path = require('path');
-const knex = require('knex')(options);
+// const knex = require('knex')(options);
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
+require("dotenv").config();
+const parseArgv = require('minimist');
 
 //Inicio
-require('./database');
 require('./src/passport/passportLocal');
 const app = express();
 const server = http.createServer(app);
@@ -40,21 +41,16 @@ app.use((req, res, next) =>{
     app.locals.signupMensaje = req.flash('signupMensaje');
     app.locals.loguinMensaje = req.flash('loguinMensaje');
     app.locals.user = req.user;
-    console.log(app.locals)
     next();
 })
 
 //Routes
 const routes = require('./routes/routes');
+const { default: mongoose } = require('mongoose');
 app.use('/', routes)
-
 app.get('/', (req, res) =>{
      res.sendFile(__dirname + '/views/index.ejs')
 });
-
-// app.get('/', (req, res) => res.render('index'));
-
-const PORT = process.env.PORT || 3000
 
 app.get('/data', (req, res) => {
     const data = newData.getAll()
@@ -65,25 +61,6 @@ app.get('/data', (req, res) => {
         console.log(error)
     })
 });
-
-app.get('/data2',(req,res)=>{
-     const produc = []
-     knex.select('*').from('productos')
-         .then(productos => {
-             for (const prod of productos) {
-                 produc.push({
-                     title:prod.title,
-                     autor:prod.autor,
-                     price:prod.price,
-                     img:prod.img
-                 })
-             }
-             res.json({data:produc})
-         })
-         .catch((error)=>{
-           console.log(error)
-   })
-})
 
   app.get('/api/productos-test', async (req, res) => {
     try {
@@ -131,4 +108,13 @@ io.on('connection', (socket) => {
     })
 })
 
-server.listen(PORT, () => console.log('Servidor corriendo...'));
+//Base de datos
+mongoose
+   .connect(process.env.MONGODB)
+   .then(() => console.log('Conectado a mongoDB Atlas'))
+   .catch((error) => console.log(error))
+
+//Puerto
+const options = {default: {port: 3000}};
+const port = parseArgv(process.argv.slice(2), options);
+server.listen(port, () => console.log(`Servidor corriendo...`));
