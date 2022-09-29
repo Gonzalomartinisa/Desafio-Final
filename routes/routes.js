@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const users = require('../src/models/users');
 const router = express.Router();
+const { fork } = require('child_process');
 
 router.get('/', (req, res) => res.render('index'));
 
@@ -66,6 +67,15 @@ router.get('/info', (req, res) => {
         argv: process.argv.slice(2),
     }
     res.render('info', {info})
+});
+
+router.get('/api/randoms', (req, res) => {
+    cant = req.query.cant || 100000000;
+    const child = fork('routes/calculo.js');
+    child.send(cant)
+    child.on('message', (resultado) => {
+        res.json({resultado});
+    });
 });
 
 module.exports = router;
