@@ -65,6 +65,7 @@ router.get('/info', (req, res) => {
         version: process.version,
         memoria: process.memoryUsage().rss,
         argv: process.argv.slice(2),
+        cpus: require('os').cpus().length
     }
     res.render('info', {info})
 });
