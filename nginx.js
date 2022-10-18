@@ -13,6 +13,7 @@ app.get('/data', (req, res) =>{
 })
 
 app.get('/api/randoms/', (req, res) => {
+    console.log(`port ${PORT}, ${new Date().toLocaleTimeString()}`);
     cant = req.query.cant || 1000000;
     const child = fork('routes/calculo.js');
     child.send(cant)
