@@ -113,6 +113,12 @@ mongoose
    .catch((error) => console.log(error))
 
 //Puerto
-const options = {default: {port: 3000}};
-const port = parseArgv(process.argv.slice(2), options);
-server.listen(port, () => console.log(`Servidor corriendo...`));
+const PORT = process.env.PORT || 8080;
+const servidor = app.listen(PORT, () => {
+    console.log(`Escuchando en el puerto ${PORT}`);
+});
+
+servidor.on('error', error => console.log(`Error en el servidor ${error}`));
+// const options = {default: {port: 3000}};
+// const port = parseArgv(process.argv.slice(2), options);
+// server.listen(port, () => console.log(`Servidor corriendo...`));
