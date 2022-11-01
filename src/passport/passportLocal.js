@@ -6,12 +6,14 @@ passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
-passport.deserializeUser((_id,done) => {
-    User.findById(_id, done);
+passport.deserializeUser((_id, done) => {
+    const user = User.findById(_id, done);
+    done(null, user);
 });
 
 passport.use('local-signup', new LocalStrategy({
     usernameField: 'email',
+    // usernameField: 'name',
     passwordField: 'password',
     passReqToCallback: true,
 }, async (req, email, password, done) => {
@@ -21,8 +23,9 @@ passport.use('local-signup', new LocalStrategy({
     } 
     if (!user) {
     const user = new User();
-    user.email = email,
-    user.password = user.encryptPassword(password),
+    user.email = email;
+    user.password = user.encryptPassword(password);
+    // user.name = name;
     await user.save();
     return done(null, user);
     }   

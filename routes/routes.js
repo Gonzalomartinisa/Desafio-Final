@@ -2,7 +2,8 @@ const express = require('express');
 const passport = require('passport');
 const users = require('../src/models/users');
 const router = express.Router();
-const { fork } = require('child_process');
+const nodemailer = require('nodemailer');
+const {sendMessage} = require('../twilio');
 
 router.get('/', (req, res) => res.render('index'));
 
@@ -15,6 +16,58 @@ router.post('/signup', passport.authenticate('local-signup', {
     failureRedirect: '/',
     passReqToCallback: true, 
 }));
+
+router.get('/email', (req, res) =>{
+    res.render('email')
+});
+
+router.post('/email', async (req, res) =>{
+    const {name, email, password, phone} = req.body;
+    contentHTML = `
+    <h1>Informacion del usuario</h1>
+       <ul>
+           <li>Nombre: ${name}</li>
+           <li>Email: ${phone}</li>
+           <li>Email: ${email}</li>
+           <li>Password: ${password}</li>
+       </ul>
+    `;
+
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.ethereal.email',
+        port: 587,
+        auth: {
+            user: 'kristian29@ethereal.email',
+            pass: '5wQxcD7chXJ3SeVrKD'
+        }
+    });
+
+    const mailOptions = {
+        from: "Servidor de node.js",
+        to: 'kristian29@ethereal.email',
+        subject: "Info del usuario",
+        html: contentHTML
+    };
+
+    try {
+        const info = await transporter.sendMail(mailOptions)
+        console.log(info)
+    } catch (error) {
+        console.log(error)
+    };
+
+    const response = await sendMessage(req.body.phone, req.body.message);
+    console.log(response);
+    res.send('Received')
+
+    // res.redirect('/email')
+});
+
+// router.post('/email', async (req, res) => {
+//      const response = await sendMessage(req.body.phone, req.body.message);
+//      console.log(response);
+//      res.send('Received')
+// });
 
 router.get('/registro', (req, res) => {
      res.render('registro', {usuario: "El usuario ha sido registrado con exito"});
@@ -68,15 +121,6 @@ router.get('/info', (req, res) => {
         cpus: require('os').cpus().length
     }
     res.render('info', {info})
-});
-
-router.get('/api/randoms', (req, res) => {
-    cant = req.query.cant || 100000000;
-    const child = fork('routes/calculo.js');
-    child.send(cant)
-    child.on('message', (resultado) => {
-        res.json({resultado});
-    });
 });
 
 module.exports = router;

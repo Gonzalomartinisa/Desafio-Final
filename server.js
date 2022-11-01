@@ -86,7 +86,7 @@ io.on('connection', (socket) => {
         const dataOut = {
             author: data,
             date, 
-            time
+            time,
         }
         newData.save(dataOut);
         io.sockets.emit('chat-out', dataOut);
@@ -113,12 +113,12 @@ mongoose
    .catch((error) => console.log(error))
 
 //Puerto
-const PORT = process.env.PORT || 8080;
-const servidor = app.listen(PORT, () => {
-    console.log(`Escuchando en el puerto ${PORT}`);
-});
+// const PORT = process.env.PORT || 8080;
+// const servidor = app.listen(PORT, () => {
+//     console.log(`Escuchando en el puerto ${PORT}`);
+// });
 
-servidor.on('error', error => console.log(`Error en el servidor ${error}`));
-// const options = {default: {port: 3000}};
-// const port = parseArgv(process.argv.slice(2), options);
-// server.listen(port, () => console.log(`Servidor corriendo...`));
+// servidor.on('error', error => console.log(`Error en el servidor ${error}`));
+ const options = {default: {port: 8080}};
+ const port = parseArgv(process.argv.slice(2), options);
+ server.listen(port, () => console.log(`Servidor corriendo...`));
