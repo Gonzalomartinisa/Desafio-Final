@@ -1,0 +1,51 @@
+[
+    {
+        "title":"El señor de los anillos",
+        "autor":"J. R. R Tolkien",
+        "img":"https://static.wikia.nocookie.net/eldragonverde/images/9/9e/Esdla-libro-minotauro.jpg/revision/latest/scale-to-width-down/256?cb=20130917183416&path-prefix=es",
+        "precio":5900,
+        "id":1
+    },
+    {
+        "title":"Las dos torres",
+        "autor":"J. R. R Tolkien",
+        "img":"https://static.wikia.nocookie.net/eldragonverde/images/9/9e/Esdla-libro-minotauro.jpg/revision/latest/scale-to-width-down/256?cb=20130917183416&path-prefix=es",
+        "precio":5000,
+        "id":2
+    },
+    {
+        "title":"El retorno del rey",
+        "autor":"J. R. R Tolkien",
+        "img":"https://static.wikia.nocookie.net/eldragonverde/images/9/9e/Esdla-libro-minotauro.jpg/revision/latest/scale-to-width-down/256?cb=20130917183416&path-prefix=es",
+        "precio":5500,
+        "id":3
+    },
+    {
+        "title":"Las legiones malditas",
+        "autor":"Santiago Posteguillo",
+        "img":"https://static.wikia.nocookie.net/eldragonverde/images/9/9e/Esdla-libro-minotauro.jpg/revision/latest/scale-to-width-down/256?cb=20130917183416&path-prefix=es",
+        "precio":4900,
+        "id":4
+    },
+    {
+        "title":"Africanus",
+        "autor":"Santiago Posteguillo",
+        "img":"https://static.wikia.nocookie.net/eldragonverde/images/9/9e/Esdla-libro-minotauro.jpg/revision/latest/scale-to-width-down/256?cb=20130917183416&path-prefix=es",
+        "precio":5700,
+        "id":5
+    },
+    {
+        "title":"Africanus",
+        "autor":"Santiago Posteguillo",
+        "img":"https://static.wikia.nocookie.net/eldragonverde/images/9/9e/Esdla-libro-minotauro.jpg/revision/latest/scale-to-width-down/256?cb=20130917183416&path-prefix=es",
+        "precio":5700,
+        "id":5
+    },
+    {
+        "title":"La traicion de Roma",
+        "autor":"Santiago Posteguillo",
+        "img":"https://static.wikia.nocookie.net/eldragonverde/images/9/9e/Esdla-libro-minotauro.jpg/revision/latest/scale-to-width-down/256?cb=20130917183416&path-prefix=es",
+        "precio":5700,
+        "id":6
+    }
+]

@@ -23,6 +23,12 @@ passport.use('local-signup', new LocalStrategy({
     } 
     if (!user) {
     const user = new User();
+    user.firstName = req.body.firstName,
+    user.lastName = req.body.lastName,
+    user.address = req.body.address,
+    user.age = req.body.age,
+    user.phone = req.body.phone,
+    user.avatar = req.body.avatar,
     user.email = email;
     user.password = user.encryptPassword(password);
     // user.name = name;

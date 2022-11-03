@@ -26,7 +26,7 @@ socket.on('chat-out', data => {
 
 function addData(data) {
     const div = document.getElementById('mensajes');
-    div.innerHTML = div.innerHTML + "<br>" + `<b>${data.author.id}</b> [${data.date} ${data.time}]: <i>${data.text}</i>`;
+    div.innerHTML = div.innerHTML + "<br>" + `<b>${data.author.id}</b> [${data.date} ${data.time}]: <i>${data.author.text}</i>`;
 };
 
 function loadData(data){
@@ -64,7 +64,7 @@ function addProductos(data){
         <th scope="col">#</th>
         <td>${data.title}</td>
         <td>${data.autor}</td>
-        <td>${data.price}</td> 
+        <td>${data.precio}</td> 
         <td><img src="${data.img}" style="heitght: 60px; width:60px;"</td> 
         </tr>`
 };
@@ -75,7 +75,7 @@ function loadProd(data){
 }
 
 function loadFirstProd(){
-    fetch('/api/productos-test')
+    fetch('/data2')
        .then(data => data.json())
        .then(data => {
             loadProd(data.data)

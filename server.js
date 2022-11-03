@@ -3,13 +3,13 @@ const { Server } = require('socket.io');
 const http = require('http');
 const Contenedor = require('./contenedor');
 const newData = new Contenedor('newData.json');
-const { faker } = require('@faker-js/faker');
 const path = require('path');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
 require("dotenv").config();
 const parseArgv = require('minimist');
+const producto = new Contenedor('producto.json')
 
 //Inicio
 require('./src/passport/passportLocal');
@@ -44,8 +44,14 @@ app.use((req, res, next) =>{
 
 //Routes
 const routes = require('./routes/routes');
+const routerCart = require('./routes/cart.router');
+const routerProduct = require('./routes/products.router');
+const routerUsers = require('./routes/users.router');
 const { default: mongoose } = require('mongoose');
-app.use('/', routes)
+app.use('/', routes);
+app.use('/api/cart', routerCart);
+app.use('/api/product', routerProduct);
+app.use('/api/user', routerUsers);
 app.get('/', (req, res) =>{
      res.sendFile(__dirname + '/views/index.ejs')
 });
@@ -60,24 +66,34 @@ app.get('/data', (req, res) => {
     })
 });
 
-  app.get('/api/productos-test', async (req, res) => {
-    try {
-    const product = []
-    let prod = {}
-    for (let i = 0; i < 5; i++) {
-        prod = {
-            title:faker.commerce.productName(),
-            autor:faker.name.fullName(),
-            price:faker.commerce.price(),
-            img:faker.image.avatar()
-        }       
-        product.push(prod)     
-    }
-         res.json({data:product})
-    } catch (error) {
-         console.log(error)    
-    }
-});
+  app.get('/data2', (req, res) => {
+      const data = producto.getAll()
+     .then((data)=>{
+          res.json({data})
+      })
+     .catch((error)=>{
+         console.log(error)
+    })
+ });
+
+//   app.get('/api/productos-test', async (req, res) => {
+//     try {
+//     const product = []
+//     let prod = {}
+//     for (let i = 0; i < 5; i++) {
+//         prod = {
+//             title:faker.commerce.productName(),
+//             autor:faker.name.fullName(),
+//             price:faker.commerce.price(),
+//             img:faker.image.avatar()
+//         }       
+//         product.push(prod)     
+//     }
+//          res.json({data:product})
+//     } catch (error) {
+//          console.log(error)    
+//     }
+// });
 
 io.on('connection', (socket) => {
     socket.on('notificacion', data => {
@@ -92,19 +108,16 @@ io.on('connection', (socket) => {
         io.sockets.emit('chat-out', dataOut);
     })
     socket.on('notiProductos', data => {
-        knex('productos').insert({
+        const dataOut = {
             title: data.title,
+            precio: data.precio,
             autor: data.autor,
-            img: data.img,
-            price: data.price,
-        })
-        .then(() => console.log("productos insertados"))
-        .catch(err => {console.log(err); throw err})
-        const dataOut = data
-        // producto.save(dataOut);
+            img: data.img
+        }
+        producto.save(dataOut);
         io.sockets.emit('product-out', dataOut);
     })
-})
+});
 
 //Base de datos
 mongoose
