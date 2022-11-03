@@ -1,9 +1,9 @@
 const express = require('express');
 const passport = require('passport');
-const users = require('../src/models/users');
+const users = require('../models/users');
 const router = express.Router();
 const nodemailer = require('nodemailer');
-const {sendMessage} = require('../twilio');
+const {sendMessage} = require('../services/email.services');
 
 router.get('/', (req, res) => res.render('index'));
 
@@ -62,12 +62,6 @@ router.post('/email', async (req, res) =>{
 
     // res.redirect('/email')
 });
-
-// router.post('/email', async (req, res) => {
-//      const response = await sendMessage(req.body.phone, req.body.message);
-//      console.log(response);
-//      res.send('Received')
-// });
 
 router.get('/registro', (req, res) => {
      res.render('registro', {usuario: "El usuario ha sido registrado con exito"});

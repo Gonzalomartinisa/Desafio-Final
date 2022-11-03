@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const productModel = require('../src/models/product');
+const productModel = require('../models/product');
 const routerProduct = Router();
 
 routerProduct.post('/', (req, res) => {

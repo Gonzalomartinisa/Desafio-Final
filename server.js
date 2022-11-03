@@ -1,18 +1,19 @@
 const express = require('express');
 const { Server } = require('socket.io');
 const http = require('http');
-const Contenedor = require('./contenedor');
-const newData = new Contenedor('newData.json');
+const Contenedor = require('./controler/contenedor');
+const newData = new Contenedor('./localhost/newData.json');
 const path = require('path');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
-require("dotenv").config();
+// require("dotenv").config();
 const parseArgv = require('minimist');
-const producto = new Contenedor('producto.json')
+const producto = new Contenedor('./localhost/producto.json');
+const connectMongoDB = require('./config/db')
 
 //Inicio
-require('./src/passport/passportLocal');
+require('./controler/passportLocal');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
@@ -47,7 +48,7 @@ const routes = require('./routes/routes');
 const routerCart = require('./routes/cart.router');
 const routerProduct = require('./routes/products.router');
 const routerUsers = require('./routes/users.router');
-const { default: mongoose } = require('mongoose');
+// const { default: mongoose } = require('mongoose');
 app.use('/', routes);
 app.use('/api/cart', routerCart);
 app.use('/api/product', routerProduct);
@@ -76,25 +77,6 @@ app.get('/data', (req, res) => {
     })
  });
 
-//   app.get('/api/productos-test', async (req, res) => {
-//     try {
-//     const product = []
-//     let prod = {}
-//     for (let i = 0; i < 5; i++) {
-//         prod = {
-//             title:faker.commerce.productName(),
-//             autor:faker.name.fullName(),
-//             price:faker.commerce.price(),
-//             img:faker.image.avatar()
-//         }       
-//         product.push(prod)     
-//     }
-//          res.json({data:product})
-//     } catch (error) {
-//          console.log(error)    
-//     }
-// });
-
 io.on('connection', (socket) => {
     socket.on('notificacion', data => {
         const time = new Date().toLocaleTimeString()
@@ -119,19 +101,11 @@ io.on('connection', (socket) => {
     })
 });
 
-//Base de datos
-mongoose
-   .connect(process.env.MONGODB)
-   .then(() => console.log('Conectado a mongoDB Atlas'))
-   .catch((error) => console.log(error))
-
 //Puerto
-// const PORT = process.env.PORT || 8080;
-// const servidor = app.listen(PORT, () => {
-//     console.log(`Escuchando en el puerto ${PORT}`);
-// });
+connectMongoDB(() => {
+    const options = {default: {port: 8081}};
+    const port = parseArgv(process.argv.slice(2), options);
+    server.listen(port, () => console.log(`Servidor corriendo...`));
+    })
+    
 
-// servidor.on('error', error => console.log(`Error en el servidor ${error}`));
- const options = {default: {port: 8080}};
- const port = parseArgv(process.argv.slice(2), options);
- server.listen(port, () => console.log(`Servidor corriendo...`));

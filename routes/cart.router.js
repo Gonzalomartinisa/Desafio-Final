@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const { Router } = require('express');
-const productModel = require('../src/models/product');
-const userSchema = require('../src/models/users');
-const cartModel = require('../src/models/cart');
+const productModel = require('../models/product');
+const userSchema = require('../models/users');
+const cartModel = require('../models/cart');
 const routerCart = Router();
 
 routerCart.post('/', (req, res) => {
