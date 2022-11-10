@@ -1,7 +1,7 @@
 const express = require('express');
 const { Server } = require('socket.io');
 const http = require('http');
-const Contenedor = require('./controler/contenedor');
+const Contenedor = require('./dao/contenedor');
 const newData = new Contenedor('./localhost/newData.json');
 const path = require('path');
 const passport = require('passport');
@@ -10,10 +10,10 @@ const flash = require('connect-flash');
 // require("dotenv").config();
 const parseArgv = require('minimist');
 const producto = new Contenedor('./localhost/producto.json');
-const connectMongoDB = require('./config/db')
+const connectMongoDB = require('./config/db');
 
 //Inicio
-require('./controler/passportLocal');
+require('./controllers/passportLocal');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);

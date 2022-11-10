@@ -1,0 +1,59 @@
+<%- include("layouts/navbar") %>
+
+<div class="container p-4">
+  <div class="row">
+      <div class="col-md-6 offset-md-3">
+          <div class="card mt-4">
+              <div class="card-body">
+                  <form action="/api/product" method="POST">
+                      <h1>Agregar producto</h1>
+                      <div class="form-group">
+                          <input type="name" name="title" placeholder="Titulo" class="form-control" autofocus>
+                      </div>
+                      <div class="form-group">
+                          <input type="name" name="autor" placeholder="Autor" class="form-control" autofocus>
+                      </div>
+                      <div class="form-group">
+                          <input type="number" name="price" placeholder="Precio" class="form-control" autofocus>
+                      </div>
+                      <div class="form-group">
+                          <input type="name" name="img" placeholder="URL" class="form-control" autofocus>
+                      </div>
+              </div>
+              <button class="btn btn-primary btn-block" type="submit">Agregar producto</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+
+<div class="container">
+  <h1>Productos</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Imagen</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% if (arrayProducts.length > 0) { %> 
+      <% arrayProducts.forEach(element => { %>
+
+      <tr>
+        <th scope="row"><%= element.id %></th>
+        <td><%= element.title %></td>
+        <td><%= element.autor %></td>
+        <td><%= element.price %> pesos</td>
+        <td><img src=<%= element.img %> style=height:100px; width:100px;></td>
+      </tr>
+
+      <% }) %> <% } %>
+    </tbody>
+  </table>
+</div>

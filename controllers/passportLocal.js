@@ -1,4 +1,5 @@
 const passport = require('passport');
+const users = require('../models/users');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/users');
 
@@ -34,7 +35,7 @@ passport.use('local-signup', new LocalStrategy({
     // user.name = name;
     await user.save();
     return done(null, user);
-    }   
+    }     
 }));
 
 passport.use('local-loguin', new LocalStrategy({
@@ -51,3 +52,5 @@ passport.use('local-loguin', new LocalStrategy({
         }
         done(null, user);
 }));
+
+

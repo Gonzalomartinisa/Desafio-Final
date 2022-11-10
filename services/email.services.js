@@ -1,12 +1,13 @@
 const accountSID = "ACc88e975d665ad8609dbee4d0443e5aea";
-const authToken = "e5e3d403a6873e85fa9f2036c16413f9";
+const authToken = "cf80ffe1a0319bbbc9f947f80ca0967f";
 const client = require('twilio')(accountSID, authToken);
+const user = require('../controllers/passportLocal');
 
-async function sendMessage(phone, body){
+async function sendMessage(){
     try {
         const message = await client.messages.create({
             from: '+19842234151',
-            to: phone,
+            to: userPhone,
             body
         })
         console.log(message.sid)

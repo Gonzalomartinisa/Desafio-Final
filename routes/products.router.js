@@ -1,18 +1,11 @@
 const { Router } = require('express');
-const productModel = require('../models/product');
-const routerProduct = Router();
+const productRouter = new Router();
+const controllerProduct = require('../controllers/productCont');
+const controllerAddProduct = require('../controllers/productCont');
+const controllerExist = require('../controllers/productCont');
 
-routerProduct.post('/', (req, res) => {
-    const product = new productModel(req.body)
-    product.save()
-        .then(() => res.json(product))
-        .catch(error => res.json(error))
-});
+productRouter.get('/', controllerProduct.getAllProducts);
+productRouter.post('/', controllerAddProduct.addProducts);
+productRouter.get('/:id', controllerExist.getProductCont);
 
-routerProduct.get('/:name?', (req, res) => {
-    productModel.find(req.params.name ? {name: req.params.name} : {})
-        .then(product => res.json(product))
-        .catch(error => res.json(error))
-});
-
-module.exports = routerProduct;
+module.exports =  productRouter;

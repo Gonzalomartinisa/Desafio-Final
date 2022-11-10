@@ -65,7 +65,7 @@ function addProductos(data){
         <td>${data.title}</td>
         <td>${data.autor}</td>
         <td>${data.precio}</td> 
-        <td><img src="${data.img}" style="heitght: 60px; width:60px;"</td> 
+        <td><img src="${data.img}" style="height: 60px; width:60px;"</td> 
         </tr>`
 };
 

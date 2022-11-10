@@ -8,7 +8,7 @@ const {sendMessage} = require('../services/email.services');
 router.get('/', (req, res) => res.render('index'));
 
 router.get('/signup', (req, res) => {
-    res.render('signup')
+    res.render('signup');
 });
 
 router.post('/signup', passport.authenticate('local-signup', {
@@ -103,18 +103,18 @@ function isAuthenticated(req, res, next){
     res.redirect('/');
 };
 
-router.get('/info', (req, res) => {
-    const info = {
-        programa: process.title,
-        plataforma:  process.platform,
-        processID: process.pid,
-        directorio: process.cwd(),
-        version: process.version,
-        memoria: process.memoryUsage().rss,
-        argv: process.argv.slice(2),
-        cpus: require('os').cpus().length
-    }
-    res.render('info', {info})
-});
+// router.get('/info', (req, res) => {
+//     const info = {
+//         programa: process.title,
+//         plataforma:  process.platform,
+//         processID: process.pid,
+//         directorio: process.cwd(),
+//         version: process.version,
+//         memoria: process.memoryUsage().rss,
+//         argv: process.argv.slice(2),
+//         cpus: require('os').cpus().length
+//     }
+//     res.render('info', {info})
+// });
 
 module.exports = router;
