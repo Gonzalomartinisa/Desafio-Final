@@ -34,9 +34,9 @@ const createCartCont = (req, res) => {
 
   const saveProductCartCont = (req, res) => {
         try {
-          const { body } = req.body;
+          const { _id } = req.params;
           const { id } = req.params;
-          const carrito = saveProductCart(body, id);
+          const carrito = saveProductCart(_id, id);
           res.json(carrito);
         } catch (error) {
           console.error(error)

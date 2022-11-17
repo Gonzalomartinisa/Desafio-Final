@@ -102,10 +102,10 @@ io.on('connection', (socket) => {
 });
 
 //Puerto
-connectMongoDB(() => {
+// connectMongoDB(() => {
     const options = {default: {port: 8081}};
     const port = parseArgv(process.argv.slice(2), options);
     server.listen(port, () => console.log(`Servidor corriendo...`));
-    })
+    // })
     
 

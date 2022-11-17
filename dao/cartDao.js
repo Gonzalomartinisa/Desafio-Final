@@ -29,14 +29,45 @@ const getAllCart = () => {
     }
 }
 
-const saveProductCart = async (body, id) => {
-    try{
-        const producto = await productModel(body);
-        await cartModel.findByIdAndUpdate(id,{
-            $push: {
-                'products': producto
-            } 
-        })
+const saveProductCart = async (_id, id) => {
+    try {
+  
+        const producto = await productModel.find({ id: _id.id }).limit(1)
+    
+        if (producto == '') {
+    
+          return 'El producto no existe'
+    
+        }
+       
+        const carrito = await cartModel.find({ id: id })
+    
+        if (carrito == '') {
+    
+          return 'El carrito no existe'
+    
+        }
+    
+        carrito[0].products.push(producto[0])
+    
+        await cartModel.findOneAndUpdate({ id: id }, { ...carrito[0] })
+    
+        return { product: 'Producto Agregado con exito' }
+    
+      } catch (err) {
+    
+        return { msg: `Error: ${err}` }
+    
+      }
+    
+    }
+    // try{
+    //     const producto = await productModel(body);
+    //     await cartModel.findByIdAndUpdate(id,{
+    //         $push: {
+    //             'products': producto
+    //         } 
+    //     })
     // try {
     //     userID = mongoose.Types.ObjectId(req.headers.userid);
     //     let cart = await cartModel.findOne({user: userID});
@@ -54,11 +85,11 @@ const saveProductCart = async (body, id) => {
     //         {$push: {products: product._id}}
     //     );
     //     return res.send(await cartModel.findOne({user: userID}));
-    } catch (error) {
-        console.log(error);
+    // } catch (error) {
+    //     console.log(error);
         
-    }
-};
+    // }
+
 
 
 
@@ -82,3 +113,37 @@ const saveProductCart = async (body, id) => {
 // }
 
 module.exports = { createCart, getCart, getAllCart, saveProductCart };
+
+// const saveProductInCart = async (body, id) => {
+
+//     try {
+  
+//       const producto = await coleccionProducts.find({ id: body.id }).limit(1)
+  
+//       if (producto == '') {
+  
+//         return 'El producto no existe'
+  
+//       }
+  
+//       const carrito = await coleccion.find({ id: id })
+  
+//       if (carrito == '') {
+  
+//         return 'El carrito no existe'
+  
+//       }
+  
+//       carrito[0].products.push(producto[0])
+  
+//       await coleccion.findOneAndUpdate({ id: id }, { ...carrito[0] })
+  
+//       return { product: 'Producto Agregado con exito' }
+  
+//     } catch (err) {
+  
+//       return { msg: `Error: ${err}` }
+  
+//     }
+  
+//   }

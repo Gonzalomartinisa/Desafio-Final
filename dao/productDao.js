@@ -11,15 +11,6 @@ const mongoose = require('mongoose');
         }
     }
 
-    // const existProduct = id => {
-    //     try {
-    //         return productModel.findById(id)
-    //     } catch (error) {
-    //         console.error(error);
-    //         return false;
-    //     }
-    // }
-
     const getProduct = (id) => {
         try {
             return productModel.findById(id);

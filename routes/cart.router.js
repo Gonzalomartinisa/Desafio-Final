@@ -10,7 +10,7 @@ const controllerGetCart = require('../controllers/cartCont');
 cartRouter.get('/:id', controllerGetCart.getCartCont);
 cartRouter.get('/', controllerCart.getAllCartCont);
 cartRouter.post('/', controllerCreateCart.createCartCont);
-cartRouter.put('/:id', controllerAddToCart.saveProductCartCont);
+cartRouter.post('/:id/:_id', controllerAddToCart.saveProductCartCont);
 
 module.exports = cartRouter;
 
