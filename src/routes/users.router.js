@@ -1,6 +1,8 @@
-const { Router } = require('express');
-const userSchema = require('../models/users');
+import { Router } from 'express'
+import user from '../models/users.js';
 const routerUsers = Router();
+
+let userSchema = user;
 
 routerUsers.post('/', (req, res) => {
     const user = new userSchema(req.body)
@@ -15,4 +17,4 @@ routerUsers.get('/:email', (req, res) => {
         .catch(error => res.json(error))
 });
 
-module.exports = routerUsers;
+export default routerUsers;

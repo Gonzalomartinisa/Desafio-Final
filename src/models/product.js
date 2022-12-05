@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const productModel = mongoose.model('Product', mongoose.Schema({
     title: {type: String, max: 200},
@@ -7,5 +7,5 @@ const productModel = mongoose.model('Product', mongoose.Schema({
     price: {type: Number},
 }));
 
-module.exports = productModel;
+export default productModel;
 

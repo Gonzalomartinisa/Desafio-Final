@@ -1,4 +1,4 @@
-const passport = require('passport');
+import express from 'express';
 const users = require('../models/users');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/users');
@@ -52,5 +52,6 @@ passport.use('local-loguin', new LocalStrategy({
         }
         done(null, user);
 }));
+
 
 

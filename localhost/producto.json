@@ -31,21 +31,21 @@
         "title":"Africanus",
         "autor":"Santiago Posteguillo",
         "img":"https://static.wikia.nocookie.net/eldragonverde/images/9/9e/Esdla-libro-minotauro.jpg/revision/latest/scale-to-width-down/256?cb=20130917183416&path-prefix=es",
-        "precio":5700,
+        "precio":5000,
         "id":5
     },
     {
-        "title":"Africanus",
+        "title":"La traicion de Romma",
         "autor":"Santiago Posteguillo",
         "img":"https://static.wikia.nocookie.net/eldragonverde/images/9/9e/Esdla-libro-minotauro.jpg/revision/latest/scale-to-width-down/256?cb=20130917183416&path-prefix=es",
-        "precio":5700,
-        "id":5
-    },
-    {
-        "title":"La traicion de Roma",
-        "autor":"Santiago Posteguillo",
-        "img":"https://static.wikia.nocookie.net/eldragonverde/images/9/9e/Esdla-libro-minotauro.jpg/revision/latest/scale-to-width-down/256?cb=20130917183416&path-prefix=es",
-        "precio":5700,
+        "precio":5500,
         "id":6
+    },
+    {
+        "title":"Los asesinos del emperador",
+        "autor":"Santiago Posteguillo",
+        "img":"https://static.wikia.nocookie.net/eldragonverde/images/9/9e/Esdla-libro-minotauro.jpg/revision/latest/scale-to-width-down/256?cb=20130917183416&path-prefix=es",
+        "precio":5700,
+        "id":7
     }
 ]

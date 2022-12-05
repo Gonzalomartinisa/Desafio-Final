@@ -1,0 +1,44 @@
+###
+POST http://localhost:8080/api/product HTTP/1.1
+
+{
+    "title": "El sidmarilion",
+    "autor": "JRR Tolkien",
+    "img": "https://edit.org/photos/images/cat/portadas-libros-big-2019101610.jpg-1300.jpg",
+    "price": 12000,
+    "__v": 0
+}
+
+###
+GET http://localhost:8080/api/product/6362e1863c0a5bbcd3d22bef HTTP/1.1 HTTP/1.1
+
+###
+DELETE http://localhost:8080/api/product/638747f725344b46ac346bb8 HTTP/1.1 HTTP/1.1
+
+###
+PUT http://localhost:8080/api/product/63863ab4ae2411f206ad70c5 HTTP/1.1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "El hobbit",
+    "autor": "JRR Tolkien",
+    "img": "https://edit.org/photos/images/cat/portadas-libros-big-2019101610.jpg-1300.jpg",
+    "price": 10000,
+    "__v": 0
+}
+
+###
+GET http://localhost:8080/api/cart/636c818639b84975205621ac HTTP/1.1 HTTP/1.1
+
+###
+POST http://localhost:8080/api/cart HTTP/1.1
+
+###
+DELETE  http://localhost:8080/api/cart/63882841896ac32cb52f1da8 HTTP/1.1
+
+###
+POST http://localhost:8080/api/cart/63863ab4ae2411f205/product/636c81df39b84975205621b8 HTTP/1.1
+
+###
+DELETE  http://localhost:8080/api/cart/6369cbab14f5c2c8c6586201/product/636c81df39b84975205621b8 HTTP/1.1
+

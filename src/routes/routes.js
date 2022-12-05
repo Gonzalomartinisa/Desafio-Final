@@ -1,9 +1,9 @@
-const express = require('express');
-const passport = require('passport');
-const users = require('../models/users');
+import express from 'express';
+import passport from 'passport';
+// const users = require('../models/users');
 const router = express.Router();
-const nodemailer = require('nodemailer');
-const {sendMessage} = require('../services/email.services');
+import nodemailer from 'nodemailer';
+// const {sendMessage} = require('../services/email.services');
 
 router.get('/', (req, res) => res.render('index'));
 
@@ -117,4 +117,4 @@ function isAuthenticated(req, res, next){
 //     res.render('info', {info})
 // });
 
-module.exports = router;
+export default router;
