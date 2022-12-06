@@ -27,7 +27,7 @@ const getProductCont = async (req, res) => {
   }
 };
 
-const getAllProducts = async (req, res, next) => {
+const getAllProducts = async (req, res) => {
   try {
     const arrayProducts = await serviceGetAll();
     res.render('products', { arrayProducts: arrayProducts });

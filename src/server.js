@@ -9,6 +9,9 @@ const producto = new Contenedor('./localhost/producto.json');
 import connectMongoDB from './config/db.js';
 import MongoStore from 'connect-mongo'
 import 'dotenv/config';
+import {fileURLToPath} from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 //Inicio
@@ -40,7 +43,7 @@ app.use((req, res, next) =>{
 })
 
 //Routes
-import router from './routes/routes.js';
+import router from './routes/users.router.js';
 import routerCart from './routes/cart.router.js';
 import productRouter from './routes/products.router.js';
 import routerUsers from './routes/users.router.js';
@@ -51,7 +54,7 @@ app.use('/api/cart', routerCart);
 app.use('/api/product', productRouter);
 app.use('/api/user', routerUsers);
 app.get('/', (req, res) =>{
-     res.sendFile(__dirname + '/views/index.ejs')
+     res.sendFile(__dirname, '/views/index.ejs')
 });
 
 app.get('/data', (req, res) => {

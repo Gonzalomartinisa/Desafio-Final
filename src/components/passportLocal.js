@@ -1,7 +1,7 @@
-import express from 'express';
-const users = require('../models/users');
-const LocalStrategy = require('passport-local').Strategy;
-const User = require('../models/users');
+import passport from 'passport';
+import User from '../models/users.js';
+import LocalStrategy from 'passport-local'
+// const User = require('../models/users');
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -32,10 +32,11 @@ passport.use('local-signup', new LocalStrategy({
     user.avatar = req.body.avatar,
     user.email = email;
     user.password = user.encryptPassword(password);
-    // user.name = name;
+    // sendAdmind(newUser)
     await user.save();
     return done(null, user);
     }     
+    // sendAdmind(newUser)
 }));
 
 passport.use('local-loguin', new LocalStrategy({
@@ -52,6 +53,8 @@ passport.use('local-loguin', new LocalStrategy({
         }
         done(null, user);
 }));
+
+export default passport;
 
 
 
