@@ -4,7 +4,9 @@ import {
   serviceGetCartId,
   serviceDeletetCart,
   serviceSaveProductCart,
-  serviceDeleteProductCart
+  serviceDeleteProductCart,
+  serviceGetAllProductsCart,
+  deleteProductInCart,
 } from "../services/cart.services.js";
 
 //Crear carrito
@@ -14,7 +16,6 @@ const createCartCont = async (req, res) => {
     res.json(cart);
   } catch (error) {
     console.error(error);
-    res.send(error);
   }
 };
 
@@ -26,7 +27,6 @@ const getCartCont = async (req, res) => {
     res.json(cart);
   } catch (error) {
     console.error(error);
-    res.send("No se encontro el carrito");
   }
 };
 
@@ -37,7 +37,6 @@ const getAllCartCont = async (req, res) => {
     res.render("carrito", { arrayCart: arrayCart });
   } catch (error) {
     console.error(error);
-    res.send(error);
   }
 };
 
@@ -66,6 +65,7 @@ const saveProductCartCont = async (req, res) => {
   }
 };
 
+//Borrar productos del carro
 const deleteProductCartCont = async (req, res) => {
   try {
     const { id_prod } = req.params;
@@ -78,11 +78,36 @@ const deleteProductCartCont = async (req, res) => {
   }
 };
 
+//Traer todo lo que esta en el carro
+const getProductCartId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const products = await serviceGetAllProductsCart(id);
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.send("No se encontro el carrito");
+  }
+};
+
+const deleteProductsCartCont = async (req, res) => {
+  try {
+    const cart = req.user;
+    const product = await deleteProductInCart(cart);
+    res.json(product);
+  } catch (error) {
+    console.error(error);
+    res.send("No se encontro el carrito");
+  }
+};
+
 export default {
   createCartCont,
   getAllCartCont,
   saveProductCartCont,
   deleteProductCont,
   getCartCont,
-  deleteProductCartCont
+  deleteProductCartCont,
+  getProductCartId,
+  deleteProductsCartCont,
 };

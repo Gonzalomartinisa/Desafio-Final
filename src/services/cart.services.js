@@ -4,8 +4,11 @@ import {
     getAllCart, 
     deleteCart,
     saveProductCart,
-    deleteProductCart
+    deleteProductCart,
+    getAllProductsCart
 } from '../dao/cartDao.js';
+
+import sendMessage from '../components/notificaciones/message.js'
 
 async function serviceCreateCart() {
     const cart = await createCart()
@@ -34,11 +37,28 @@ async function serviceDeleteProductCart(id, data) {
     return productDelete;
 };
 
+async function serviceGetAllProductsCart(id) {
+    const product = await getAllProductsCart(id);
+    sendMessage(product);
+    console.log(product)
+};
+
+async function deleteProductInCart(user) {
+    sendMessage(
+        `Nuevo pedido de ${user} desde ${user}`,
+         await getAllProductsCart()
+        
+      )
+    console.log(user)
+}
+
 export {
     serviceCreateCart,
     serviceGetAllCart,
     serviceGetCartId,
     serviceDeletetCart,
     serviceSaveProductCart,
-    serviceDeleteProductCart
+    serviceDeleteProductCart,
+    serviceGetAllProductsCart,
+    deleteProductInCart
 };

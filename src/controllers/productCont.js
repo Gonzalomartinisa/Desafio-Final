@@ -6,7 +6,7 @@ import {
   serviceUpdateProduct,  
 } from '../services/products.services.js';
 
-  const addProducts = async (req, res, next) => {
+  const addProducts = async (req, res) => {
     try {
       const product = req.body;
       await serviceCreateProduct(product); 
@@ -23,7 +23,6 @@ const getProductCont = async (req, res) => {
     res.json(product);
   } catch (error) {
     console.error(error);
-    res.send("El producto no existe");
   }
 };
 
@@ -31,10 +30,9 @@ const getAllProducts = async (req, res) => {
   try {
     const arrayProducts = await serviceGetAll();
     res.render('products', { arrayProducts: arrayProducts });
-  //   res.json(product);
+    // res.json(product);
   } catch (error) {
     console.error(error);
-    res.send(error);
   }
 };
 

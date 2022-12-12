@@ -84,12 +84,24 @@ const deleteProductCart = async (id_prod, id) => {
         };   
 };
 
+//Mostrar todos los productos de un carrito por ID
+const getAllProductsCart = async (id) => {
+    try {
+        return await cart.findById(id).populate('products').select({products: 1, _id:0});
+    } catch (error) {
+        this.logger.error(error);
+        return null;
+    }
+};
+//Vaciar carrito por ID
+
 export {
     createCart, 
     getCartId, 
     getAllCart, 
     deleteCart, 
     saveProductCart,
-    deleteProductCart
+    deleteProductCart,
+    getAllProductsCart
 };
 

@@ -1,14 +1,14 @@
+import twilio from 'twilio';
 const accountSID = "ACc88e975d665ad8609dbee4d0443e5aea";
-const authToken = "cf80ffe1a0319bbbc9f947f80ca0967f";
-const client = require('twilio')(accountSID, authToken);
-const user = require('../controllers/passportLocal');
+const authToken = "5d183f1e5227ebedcbc0683a2ec9ef25";
+const client = twilio(accountSID, authToken);
 
-async function sendMessage(){
+const sendMessage = async (body) => {
     try {
         const message = await client.messages.create({
             from: '+19842234151',
-            to: userPhone,
-            body
+            to: '+541159777543',
+            body: body,
         })
         console.log(message.sid)
         return message;
@@ -30,4 +30,4 @@ async function sendWhatsapp(body, phone){
     }
 };
 
-module.exports = {sendMessage, sendWhatsapp};
+export default sendMessage;

@@ -1,7 +1,8 @@
 import passport from 'passport';
 import User from '../models/users.js';
-import LocalStrategy from 'passport-local'
-// const User = require('../models/users');
+import LocalStrategy from 'passport-local';
+import sendEmailUser from '../components/notificaciones/emailSignup.js';
+const LocalStrategys = LocalStrategy.Strategy;
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -12,7 +13,7 @@ passport.deserializeUser((_id, done) => {
     done(null, user);
 });
 
-passport.use('local-signup', new LocalStrategy({
+passport.use('local-signup', new LocalStrategys({
     usernameField: 'email',
     // usernameField: 'name',
     passwordField: 'password',
@@ -32,14 +33,14 @@ passport.use('local-signup', new LocalStrategy({
     user.avatar = req.body.avatar,
     user.email = email;
     user.password = user.encryptPassword(password);
-    // sendAdmind(newUser)
+    sendEmailUser(user);
+    console.log(user)
     await user.save();
     return done(null, user);
     }     
-    // sendAdmind(newUser)
 }));
 
-passport.use('local-loguin', new LocalStrategy({
+passport.use('local-loguin', new LocalStrategys({
     usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: true,
@@ -51,8 +52,9 @@ passport.use('local-loguin', new LocalStrategy({
         if(!user.comparePassword(password)){
             return done(null, false, req.flash('loguinMensaje', 'Contraseña incorrecta'));
         }
-        done(null, user);
-}));
+        return done(null, user);
+})
+);
 
 export default passport;
 

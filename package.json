@@ -1,12 +1,13 @@
 {
   "name": "desafio-websocket",
   "version": "1.0.0",
-  "description": "",
+  "description": "Entrega final de curso backend",
   "main": "./src/server.js",
   "scripts": {
     "start": "nodemon .",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "babel-node src/server.js"
+    },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -37,5 +38,11 @@
     "socket.io": "^4.5.1",
     "sqlite3": "^5.0.11",
     "twilio": "^3.83.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.20.5",
+    "@babel/node": "^7.20.5",
+    "@babel/preset-env": "^7.20.2"
   }
 }
