@@ -24,9 +24,11 @@ const getCartCont = async (req, res) => {
   try {
     const { id } = req.params;
     const cart = await serviceGetCartId(id);
+    console.log(cart)
     res.json(cart);
   } catch (error) {
     console.error(error);
+    res.json(error);
   }
 };
 
@@ -34,7 +36,7 @@ const getCartCont = async (req, res) => {
 const getAllCartCont = async (req, res) => {
   try {
     const arrayCart = await serviceGetAllCart();
-    res.render("carrito", { arrayCart: arrayCart });
+    res.render("carro", { arrayCart: arrayCart });
   } catch (error) {
     console.error(error);
   }
@@ -48,7 +50,7 @@ const deleteProductCont = async (req, res) => {
     res.send("El carrito fue borrado");
   } catch (error) {
     console.error(error);
-    es.send("No se encontro el carrito");
+    res.send("No se encontro el carrito");
   }
 };
 
@@ -83,18 +85,19 @@ const getProductCartId = async (req, res) => {
   try {
     const { id } = req.params;
     const products = await serviceGetAllProductsCart(id);
-    res.json(products);
+    // res.render("carro", {products: products});
   } catch (error) {
     console.error(error);
     res.send("No se encontro el carrito");
   }
 };
 
+//Mandar pedido por mail y borrar carrito
 const deleteProductsCartCont = async (req, res) => {
   try {
     const cart = req.user;
     const product = await deleteProductInCart(cart);
-    res.json(product);
+    console.log(cart);
   } catch (error) {
     console.error(error);
     res.send("No se encontro el carrito");

@@ -52,7 +52,8 @@ passport.use('local-loguin', new LocalStrategys({
         if(!user.comparePassword(password)){
             return done(null, false, req.flash('loguinMensaje', 'Contraseña incorrecta'));
         }
-        return done(null, user);
+        // console.log(user)
+        done(null, user);
 })
 );
 

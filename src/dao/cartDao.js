@@ -7,7 +7,7 @@ let product = productModel;
 //Crear carrito
 const createCart = async () => {
     try {
-        return await cartModel.create({});
+        return await cartModel.create({}).lean();
     } catch (error) {
         console.error(error);
         return false;
@@ -17,7 +17,7 @@ const createCart = async () => {
 //Mostrar carrito por ID
 const getCartId = async (id) => {
     try {
-        return await cart.findById(id);
+        return await cart.findById(id).lean();
     } catch (error) {
         console.log(error);
         return false;
@@ -57,7 +57,7 @@ const saveProductCart = async (id_prod, id) => {
         carrito.products.push(producto)    
         await carrito.save();
         // findOneAndUpdate(id, { ...carrito })    
-        return { Producto: 'Producto fue agregado con exito' }    
+        return { Producto: 'El producto fue agregado con exito' }    
         } catch (error) {
             console.error(error);
             return { msg: `Error: ${error}` }
@@ -89,10 +89,11 @@ const getAllProductsCart = async (id) => {
     try {
         return await cart.findById(id).populate('products').select({products: 1, _id:0});
     } catch (error) {
-        this.logger.error(error);
+        console.error(error);
         return null;
     }
 };
+
 //Vaciar carrito por ID
 
 export {

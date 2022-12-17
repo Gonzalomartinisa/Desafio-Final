@@ -1,0 +1,32 @@
+<%- include("layouts/navbar") %>
+
+<div class="container">
+  <h1>Producto</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Imagen</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% if (productos.length > 0) { %> 
+      <% productos.forEach(element => { %>
+
+      <tr>
+        <th scope="row"><%= element.id %></th>
+        <td><%= element.title %></td>
+        <td><%= element.autor %></td>
+        <td><%= element.price %> pesos</td>
+        <td><img src=<%= element.img %> style=height:100px; width:100px;></td>
+      </tr>
+
+      <% }) %> <% } %>
+
+    </tbody>
+  </table>
+</div>

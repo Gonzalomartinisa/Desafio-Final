@@ -8,7 +8,8 @@ import {
     getAllProductsCart
 } from '../dao/cartDao.js';
 
-import sendMessage from '../components/notificaciones/message.js'
+import emailCart from '../components/notificaciones/emailCart.js';
+import msgTwilio from '../components/notificaciones/msgTwilio.js';
 
 async function serviceCreateCart() {
     const cart = await createCart()
@@ -39,19 +40,27 @@ async function serviceDeleteProductCart(id, data) {
 
 async function serviceGetAllProductsCart(id) {
     const product = await getAllProductsCart(id);
-    sendMessage(product);
-    console.log(product)
+    emailCart(product)
+    const sms = {
+        number: `+541159777543`,
+        body: 'Su pedido ha sido recibido y se encuentra en proceso. Gracias por su compra!',
+        from: '+19842234151'
+      };
+      msgTwilio(sms);
+    //   console.log(sms);
 };
 
 async function deleteProductInCart(user) {
-    sendMessage(
-        `Nuevo pedido de ${user} desde ${user}`,
-         await getAllProductsCart()
+    // const SMS = {
+    //     number: `+${user.phone}`,
+    //     body: 'Su pedido ha sido recibido y se encuentra en proceso!',
+    //     desde: '+19036008221'
+    //   }
+    // await serviceGetAllProductsCart()
+    // emailCart(email);
+    // console.log(email)
+};
         
-      )
-    console.log(user)
-}
-
 export {
     serviceCreateCart,
     serviceGetAllCart,

@@ -16,7 +16,8 @@ async function serviceGetAll() {
 };
 
 async function serviceGetProduct(data) {
-    return await getProduct(data)
+    const producto = await getProduct(data)
+    return producto;
 };
 
 async function serviceDeleteProduct(data) {

@@ -1,16 +1,17 @@
 import twilio from 'twilio';
 const accountSID = "ACc88e975d665ad8609dbee4d0443e5aea";
-const authToken = "5d183f1e5227ebedcbc0683a2ec9ef25";
+const authToken = "4e4b01fb9d207292e8fbae31a90b4618";
 const client = twilio(accountSID, authToken);
 
-const sendMessage = async (body) => {
+const sendMessage = async (obj) => {
     try {
-        const message = await client.messages.create({
-            from: '+19842234151',
-            to: '+541159777543',
-            body: body,
-        })
-        console.log(message.sid)
+        const sms = {
+            body: obj.body,
+            from: obj.from,
+            to: obj.number
+          }
+        const message = await client.messages.create(sms);
+        // console.log(sms)
         return message;
     } catch (error) {
         console.log(error)

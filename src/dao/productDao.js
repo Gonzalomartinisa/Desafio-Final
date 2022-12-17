@@ -1,5 +1,6 @@
 import productModel from "../models/product.js";
 
+//Crear producto
     const createProduct = async (object) => {
         try {
             return await productModel.create(object)
@@ -9,14 +10,17 @@ import productModel from "../models/product.js";
         }
     };
 
+//Mostrar producto por ID
     const getProduct = async (id) => {
         try {
             return await productModel.findById(id);
         } catch (error) {
             console.log(error);
+            return false
         }
     };
 
+//Mostrar todos los productos
     const getAll = async () => {
         try {
             return await productModel.find();
@@ -26,6 +30,7 @@ import productModel from "../models/product.js";
         }
     };
 
+    //Borrar producto por ID
     const deleteProduct = async (id) => {
         try {
             return await productModel.findByIdAndDelete(id);
@@ -34,6 +39,7 @@ import productModel from "../models/product.js";
         }
     };
 
+//Actualizar un producto
     const updateProduct = async (id, object) => {
         try {
             await productModel.findOneAndUpdate({_id: id}, {...object});

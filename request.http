@@ -12,11 +12,11 @@ POST http://localhost:8080/api/product HTTP/1.1
 
 //Mostrar un producto
 ###
-GET http://localhost:8080/api/product/6362e1863c0a5bbcd3d22bef HTTP/1.1 HTTP/1.1
+GET http://localhost:8080/api/product/636c81df39b84975205621b8 HTTP/1.1 HTTP/1.1
 
 //Borrar un producto por ID
 ###
-DELETE http://localhost:8080/api/product/638747f725344b46ac346bb8 HTTP/1.1 HTTP/1.1
+DELETE http://localhost:8080/api/product/delete/638747e325344b46ac346ba6 HTTP/1.1 HTTP/1.1
 
 //Actualizar un producto por ID
 ###
@@ -33,7 +33,7 @@ Content-Type: application/json
 
 //Mostrar un carrito por ID
 ###
-GET http://localhost:8080/api/cart/636c815c39b84975205621a6 HTTP/1.1 HTTP/1.1
+GET http://localhost:8080/api/cart/636c828b17b675e170489dc8 HTTP/1.1 HTTP/1.1
 
 //Crear un carrito
 ###
@@ -45,16 +45,15 @@ DELETE  http://localhost:8080/api/cart/63882841896ac32cb52f1da8 HTTP/1.1
 
 //Agregar un producto en el carrito
 ###
-POST http://localhost:8080/api/cart/63863ab4ae2411f205/product/636c81df39b84975205621b8 HTTP/1.1
+POST http://localhost:8080/api/cart/638637a3bbfa36595f02ff26/product/636c828b17b675e170489dc8 HTTP/1.1
 
 //Borrar un producto del carrito por ID
 ###
 DELETE  http://localhost:8080/api/cart/6369cbab14f5c2c8c6586201/product/636c81df39b84975205621b8 HTTP/1.1
 
-//Mostrar los productos de un carrito
+//Comprar los productos de un carrito y enviar notificaciones.
 ###
-GET http://localhost:8080/api/cart/636c81df39b84975205621b8/productos HTTP/1.1 HTTP/1.1
+GET http://localhost:8080/api/cart/636c828b17b675e170489dc8/productos HTTP/1.1 HTTP/1.1
 
-###
-DELETE  http://localhost:8080/api/cart/636c828b17b675e170489dc8/finalizar HTTP/1.1 HTTP/1.1
+
 

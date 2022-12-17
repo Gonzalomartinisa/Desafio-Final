@@ -17,7 +17,7 @@ routerUsers.post(
     successRedirect: "/registro",
     failureRedirect: "/",
     passReqToCallback: true,
-  })
+  }),
 );
 
 routerUsers.get("/registro", isAuthenticated, (req, res) => {
@@ -40,7 +40,7 @@ routerUsers.post(
     successRedirect: "/",
     failureRedirect: "/",
     passReqToCallback: true,
-  })
+  }),
 );
 
 routerUsers.get("/userlog", isAuthenticated, (req, res) => {
