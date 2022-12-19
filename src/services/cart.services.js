@@ -24,8 +24,9 @@ async function serviceGetCartId(id) {
     return await getCartId(id)
 };
 
-async function serviceDeletetCart(id) {
-    return await deleteCart(id)
+async function serviceDeletetCart(data) {
+    await deleteCart(data)
+    return data;
 };
 
 async function serviceSaveProductCart(id, data) {
@@ -49,18 +50,7 @@ async function serviceGetAllProductsCart(id) {
       msgTwilio(sms);
     //   console.log(sms);
 };
-
-async function deleteProductInCart(user) {
-    // const SMS = {
-    //     number: `+${user.phone}`,
-    //     body: 'Su pedido ha sido recibido y se encuentra en proceso!',
-    //     desde: '+19036008221'
-    //   }
-    // await serviceGetAllProductsCart()
-    // emailCart(email);
-    // console.log(email)
-};
-        
+     
 export {
     serviceCreateCart,
     serviceGetAllCart,
@@ -69,5 +59,4 @@ export {
     serviceSaveProductCart,
     serviceDeleteProductCart,
     serviceGetAllProductsCart,
-    deleteProductInCart
 };

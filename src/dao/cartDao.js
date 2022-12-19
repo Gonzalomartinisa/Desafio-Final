@@ -7,10 +7,9 @@ let product = productModel;
 //Crear carrito
 const createCart = async () => {
     try {
-        return await cartModel.create({}).lean();
+        return await cartModel.create({});
     } catch (error) {
-        console.error(error);
-        return false;
+        return { Mensaje: `Error: ${error}` }
     }
 };
 
@@ -19,8 +18,7 @@ const getCartId = async (id) => {
     try {
         return await cart.findById(id).lean();
     } catch (error) {
-        console.log(error);
-        return false;
+        return { Mensaje: `Error: ${error}` }
     }
 };
 
@@ -29,17 +27,17 @@ const getAllCart = async() => {
     try {
         return await cart.find();
     } catch (error) {
-        console.error(error);
-        return false;
+        return { Mensaje: `Error: ${error}` }
     }
 };
 
 //Borrar un carrito
 const deleteCart = async (id) => {
     try {
-        return await cartModel.findByIdAndDelete(id);
+        await cart.findByIdAndDelete(id).lean();
+        return { Mensaje: 'El producto fue borrado'}
     } catch (error) {
-        console.error(error);
+        return { Mensaje: `Error: ${err}` }
     }
 };
 
@@ -55,12 +53,10 @@ const saveProductCart = async (id_prod, id) => {
             return 'El carrito no existe'
         }    
         carrito.products.push(producto)    
-        await carrito.save();
-        // findOneAndUpdate(id, { ...carrito })    
-        return { Producto: 'El producto fue agregado con exito' }    
+        return await carrito.save();   
+        // return { Producto: 'El producto fue agregado con exito' }    
         } catch (error) {
-            console.error(error);
-            return { msg: `Error: ${error}` }
+            return { Mensaje: `Error: ${error}` }
         };   
 };
 
@@ -77,14 +73,13 @@ const deleteProductCart = async (id_prod, id) => {
         }    
         carrito.products.remove(producto);    
         await carrito.save(); 
-        return { Producto: 'El producto fue borrado con exito' }    
+        return { Mensaje: 'El producto fue borrado con exito' }    
         } catch (error) {
-            console.error(error);
-            return false;   
+            return { Mensaje: `Error: ${error}` }   
         };   
 };
 
-//Mostrar todos los productos de un carrito por ID
+//Mostrar todos los productos de un carrito y enviar notificaciones de la compra 
 const getAllProductsCart = async (id) => {
     try {
         return await cart.findById(id).populate('products').select({products: 1, _id:0});

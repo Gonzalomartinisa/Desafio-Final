@@ -6,7 +6,6 @@ import {
   serviceSaveProductCart,
   serviceDeleteProductCart,
   serviceGetAllProductsCart,
-  deleteProductInCart,
 } from "../services/cart.services.js";
 
 //Crear carrito
@@ -24,11 +23,9 @@ const getCartCont = async (req, res) => {
   try {
     const { id } = req.params;
     const cart = await serviceGetCartId(id);
-    console.log(cart)
     res.json(cart);
   } catch (error) {
-    console.error(error);
-    res.json(error);
+    console.log("No se encontro el carrito", error);
   }
 };
 
@@ -39,6 +36,7 @@ const getAllCartCont = async (req, res) => {
     res.render("carro", { arrayCart: arrayCart });
   } catch (error) {
     console.error(error);
+    res.json("No se encontraron los carritos");
   }
 };
 
@@ -47,10 +45,10 @@ const deleteProductCont = async (req, res) => {
   try {
     const { id } = req.params;
     await serviceDeletetCart(id);
-    res.send("El carrito fue borrado");
+    res.json("El carrito fue borrado");
   } catch (error) {
     console.error(error);
-    res.send("No se encontro el carrito");
+    res.json("No se encontro el carrito");
   }
 };
 
@@ -63,7 +61,7 @@ const saveProductCartCont = async (req, res) => {
     res.json(carrito);
   } catch (error) {
     console.error(error);
-    res.json(error);
+    res.json("No se encontro el carrito");
   }
 };
 
@@ -76,7 +74,6 @@ const deleteProductCartCont = async (req, res) => {
     res.json(carrito);
   } catch (error) {
     console.error(error);
-    res.json(error);
   }
 };
 
@@ -92,18 +89,6 @@ const getProductCartId = async (req, res) => {
   }
 };
 
-//Mandar pedido por mail y borrar carrito
-const deleteProductsCartCont = async (req, res) => {
-  try {
-    const cart = req.user;
-    const product = await deleteProductInCart(cart);
-    console.log(cart);
-  } catch (error) {
-    console.error(error);
-    res.send("No se encontro el carrito");
-  }
-};
-
 export default {
   createCartCont,
   getAllCartCont,
@@ -112,5 +97,4 @@ export default {
   getCartCont,
   deleteProductCartCont,
   getProductCartId,
-  deleteProductsCartCont,
 };

@@ -48,7 +48,7 @@ app.use((req, res, next) =>{
     app.locals.signupMensaje = req.flash('signupMensaje');
     app.locals.loguinMensaje = req.flash('loguinMensaje');
     app.locals.user = req.user;
-    console.log(app.locals.user);
+    // console.log(app.locals.user);
     next();
 });
 
@@ -67,33 +67,20 @@ function isAuthenticated(req, res, next) {
   };
 
 app.use('/', router);
-app.use('/api/cart', isAuthenticated, routerCart);
-app.use('/api/product', isAuthenticated, productRouter);
-app.use('/api/user',isAuthenticated, routerUsers);
+app.use('/api/cart', routerCart);
+app.use('/api/product', productRouter);
+app.use('/api/user', routerUsers);
 app.get('/', (req, res) =>{
      res.sendFile(__dirname, '/views/index.ejs')
 });
-// app.all("*", (req, res, next) => {
-//   res.status(404).json('Error 404: La ruta buscada no existe')
-//   return next()
-// });
 
 //Puerto
-// const PORT = process.env.PORT || 8081
-// const httpServer = server.listen(PORT, () => {
-//   console.log(`Servidor corriendo en el puerto ${PORT}`)
-//   connectMongoDB(() => {});
-// });
-// server.on('error', (error) => {
-//   console.log('Hubo un error...')
-// });
-// socket(io);
+const PORT = process.env.PORT || 8081
+const server = app.listen(PORT, () => {
+  console.log(`Servidor escuchando en el puerto ${PORT}`)
+})
+server.on('error', (error) => {
+  console.log('Hubo un error...')
+  console.log(error)
+})
 connectMongoDB(() => {});
-
-//Websockets y puerto
-const PORT = process.env.PORT || 8081;
-const server = http.createServer(app);
-const httpServer = server.listen(PORT);
-console.log(`Servidor corriendo en el puerto ${PORT}`);
-const io = new Server(httpServer);
-socket(io);

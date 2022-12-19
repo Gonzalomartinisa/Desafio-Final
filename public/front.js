@@ -1,5 +1,5 @@
-const socket = io();
+// const socket = io();
 
-socket.on('loadnotes', (data) => {
-    console.log(data)
-})
+// socket.on('loadnotes', (data) => {
+//     console.log(data)
+// })

@@ -6,7 +6,7 @@ const createUser = async (object) => {
         return await user.create({object}).lean();
     } catch (error) {
         console.error(error);
-        return false;
+        return 'Producto no encontrado';
     }
 };
 

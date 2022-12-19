@@ -16,13 +16,10 @@
 <%- include("layouts/navbar") %>
 
 <% if (user) { %>
-  <h1 class="alert alert-success">Bienvenido <%= user.email %> al mercadito</h1>
+  <h1 class="alert alert-success">Bienvenido <%= user %> al mercadito</h1>
 <% } else { %>
   <%- include("loguin") %>
 <% } %>
-
-<div><h2><%= user %></h2></div>
-
 
 <body style="margin:10px; background-color: azure;">
 
